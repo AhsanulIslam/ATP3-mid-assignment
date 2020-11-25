@@ -1,0 +1,94 @@
+<%- include ('admin_header')%>
+
+	<h1 style="text-align:center;">Welcome Admin : <%= name %></h1>
+
+<div  align="center">
+	<table >
+		<tr>
+			<td>
+				<div class="card">
+				<span class="text-white"> Total Admin <br>
+					<%= ac[0].t_c %>
+					
+				</span>
+				</div>
+			</td>
+			<td>
+				<div class="card">
+				<span class="text-white"> Total Member <br>
+					<%= bc[0].t_c %>
+				</span>
+				</div>
+			</td>
+		
+		
+		</tr>
+	</table>
+</div>
+
+
+<h2>Responsive Image Gallery</h2>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="https://www.forbes.com/sites/jimgorzelany/2019/07/23/here-are-the-coolest-new-cars-for-2020/?sh=36253b7d11be">
+    <img src="https://specials-images.forbesimg.com/imageserve/5d3703e2f1176b00089761a6/960x0.jpg?cropX1=836&cropX2=5396&cropY1=799&cropY2=3364" alt="car" width="600" height="400">
+</a>
+	<div class="desc">Here Are The Coolest New Cars For 2020</div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+      <img src="data:image/jpeg;base64,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" alt="Forest" width="600" height="400">
+    <div class="desc">Car for Rent</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+      <img src="https://www.autoeurope.eu/plugins/ae3/themes/AE1/images/car_hero.png" alt="Northern Lights" width="600" height="400">
+    <div class="desc">Cheap car rent</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU0bFOIafw0vGpZRulgnpFnEYB6mU4TRaZBA&usqp=CAU" alt="Mountains" width="600" height="400">
+    <div class="desc">Car for Rent</div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="padding:6px;">
+  <p>A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight 
+	  people, have four tires, and mainly transport people rather than goods.
+
+	<b> Cars came into global use during the 20th century, and developed economies depend on them. The year 1886 is regarded as the birth year of the modern car when
+	 German inventor Karl Benz patented his Benz Patent-Motorwagen. Cars became widely available in the early 20th century. One of the first cars accessible to the masses 
+	 was the 1908 Model T, an American car manufactured by the Ford Motor Company. Cars were rapidly adopted in the US, where they replaced animal-drawn carriages and carts, 
+	 but took much longer to be accepted in Western Europe and other parts of the world.[citation needed]</b>
+	
+	Cars have controls for driving, parking, passenger comfort, and a variety of lights. Over the decades, additional features and controls have been added to 
+	vehicles, making them progressively more complex, but also more reliable and easier to operate.[citation needed] These include rear-reversing cameras, air conditioning, navigation systems, 
+	and in-car entertainment. Most cars in use in the 2010s are propelled by an internal combustion engine, fueled by the combustion of fossil fuels. Electric cars, 
+	which were invented early in the history of the car, became commercially available in the 2000s and are predicted to cost less to buy than gasoline cars before 2025.
+	The transition from fossil fuels to electric cars features prominently in most climate change mitigation scenarios, such as Project Drawdown's 100 actionable solutions for cliate change.
+	There are costs and benefits to car use. </p><a href="https://en.wikipedia.org/wiki/Car">Read More...</a>
+  <p>The costs to the individual include acquiring the vehicle, interest payments (if the car is financed), repairs and maintenance, fuel, depreciation, driving time, parking fees, 
+	  taxes, and insurance The costs to society include maintaining roads, land use, road congestion, air pollution, public health, healthcare, and disposing of the vehicle at the end 
+	  of its life. Traffic collisions are the largest cause of injury-related deaths worldwide. 
+	
+	The personal benefits include on-demand transportation, mobility, independence, and convenience. The societal benefits include economic benefits, such as job and wealth creation 
+	from the automotive industry, transportation provision, societal well-being from leisure and travel opportunities, and revenue generation from the taxes. People's ability to move 
+	flexibly from place to place has far-reaching implications for the nature of societies.There are around 1 billion cars in use worldwide. 
+	The numbers are increasing rapidly, especially in China, India and other newly industrialized countries.</p><a href="https://en.wikipedia.org/wiki/Car">Read More...</a>
+</div>
+			
+           
+      
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<%- include ('../home/admin_header')%>
+	
+<h1>This is admin create user page goes to user.js controller </h1>
+	
+
+<!-- ///////////////////need to cut the upper form/////////////////// -->
+
+	<div class="center">
+		<form method="post" onsubmit=" return validate_form()"  action="" enctype="" class="form-horizontal form-material">
+			<div class="form-group">
+				<h4 class="text">Car name:</h4> 
+				
+				<input type="text" placeholder= "Car name(year)" id="cname" name="cname" class="form-control">
+				<span style="color:red" id="err_cname" name ="err_cname"></span>
+			</div>
+			<!-- <div class="form-group">
+				<h4 class="text">Category:</h4> 
+				<select name="c_id" class="form-control">
+					<?php
+						foreach($categories as $category)
+						{
+							echo "<option value='".$category["category_id"]."' selected > ".$category["name"]."   </option>" ;
+							
+							// echo "<option value='".$category["category_id"]."'";
+							//  echo "selected";
+							// echo ">".$category["name"]."</option>";
+						}
+					?>
+					
+				</select>
+			</div> -->
+			<div class="form-group">
+				<h4 class="text">Brand:</h4> 
+				
+				<input type="text"  placeholder="Brand name" name="company" id="company" class="form-control">
+				<span style="color:red"id="err_company" name ="err_company"></span>
+			</div>
+			<div class="form-group">
+				<h4 class="text">Rent/day:</h4> 
+				
+				<input type="text"  placeholder="rent per day" name="rent" id="rent" class="form-control">
+				<span style="color:red" id="err_pass" name ="err_pass"></span>
+               
+			</div>
+			
+			
+			<!-- ////////////////////////////////// -->
+			
+	
+			<!-- <div class="form-group">
+				<h4 class="text">Description:</h4> 
+				<textarea type="text" name="description" class="form-control"></textarea>
+			</div> -->
+			<div class="form-group">
+				<h4 class="text">Image</h4> 
+				<input type="file" name="image" id="image" class="form-control"><span id="err_img" name ="err_img"></span>
+			</div>
+			
+			
+				
+
+			<div class="form-group text-center">
+				
+				<input type="submit"  class="btn btn-success" name="submit" value="Create" class="form-control">
+			</div>
+		</form>
+	</div>
+	
+	<script>
+		
+		function validate_form()
+		{
+			// var name=;
+			var cname= document.getElementById("cname").value;
+			var company= document.getElementById("company").value;
+			var rent= document.getElementById("rent").value;
+			var image=document.getElementById("image").value;
+			
+			var valid=true;
+			if (document.getElementById("cname").value=="")
+			{
+				alert("Product Name Required");
+				document.getElementById("err_fname").innerHTML="Name Required";
+				valid=false;
+			}
+			
+			if (company=="")
+			{
+				document.getElementById("err_uname").innerHTML="User name Required";
+				valid=false;
+			}
+			
+			if (rent=="")
+			{
+				document.getElementById("err_address").innerHTML="address Required";
+				valid=false;
+			}
+			// remember to remove it 
+			// if (image=="")
+			// {
+			// 	document.getElementById("err_img").innerHTML="image Required";
+			// 	valid=false;
+			// }
+			
+			if (valid)
+			{alert("insertion done");}
+		return valid;
+
+		}
+
+</script>
+	
+</body>
+</html>

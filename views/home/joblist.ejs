@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<%- include ('../home/admin_header')%>
+
+<!-- <script lang="javascript" src="/xyz/js/xlsx.full.min.js"></script>
+<script lang="javascript" src="/xyz/js/FileSaver.min.js"></script> -->
+
+<!-- <h3>Admin list</h3> -->
+
+<!-- 
+	<a href="/home">Back</a> |
+	<a href="/logout">logout</a>
+	<br> -->
+	<!-- <span class="input-group-addon">Search</span>  onkeyup="search()"-->
+	<div class="form-group">
+		<div class="input-group">
+			
+			<input type="text" name="search_input"  id="search_input"  placeholder="Search product Name" class="search" >
+		</div>
+	
+	</div>
+	<!-- 
+	class="form-control" -->
+	
+
+	
+	<div class="center" id="search_result">
+		<h3 class="text">job list</h3>
+		<table class="table table-striped" id="mytable">
+			<thead>
+				 <th>id</th> <!--user.buyer_uname, user.buyer_email, user.job_desc, user.job_date, user.salary, user.freelancer_uname -->
+				<th> Car name</th>
+				<th>Company</th>
+				<th>Categoryid</th>
+				<th> rent_amount</th>
+				<th>Image</th>
+				<!-- <th>Freelancer_uname</th> -->
+				
+			</thead>
+			<tbody>
+				<% for(var i=0; i< userlist.length; i++ ){ %>
+					<tr>
+						<td><%= userlist[i].id %></td>  
+						<td><%= userlist[i].car_name %></td>
+						<td><%= userlist[i].company %></td>
+						<td><%= userlist[i].category_id %></td>
+						<td><%= userlist[i].rent_amount %></td>
+						<td><%= userlist[i].image %></td>
+						<!-- <td><%= userlist[i].freelancer_uname %></td> -->
+						<!-- <td><a href="/admin_buyerlist/edit/<%=userlist[i].id%>"class="btn btn-success">Edit</a></td>   -->
+						<td><a href="/home/joblist/delete/<%=userlist[i].id%>" class="btn btn-danger">Delete</a></td>  
+						
+					</tr>
+					<% } %>
+			 <!-- <a href="/home/print"class="btn btn-success">print</a></td>    -->
+			 <button class="btn btn-success" id="button-a">Create Excel</button>	
+			</tbody>
+		</table>
+	</div>
+	<div id="info"></div>
+	
+	<script>
+			
+				var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), {sheet:"Sheet JS"});
+				var wbout = XLSX.write(wb, {bookType:'xlsx', bookSST:true, type: 'binary'});
+		
+				function s2ab(s) {
+		
+								var buf = new ArrayBuffer(s.length);
+								var view = new Uint8Array(buf);
+								for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+								return buf;
+				}
+				$("#button-a").click(function(){
+				saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'job list.xlsx');
+				});
+		
+	// create xl sheet  use the top functions 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 			function call_ajax()
+	// 			{
+	// 			 var http= new XMLHttpRequest();
+	// 			  http.onreadystatechange=function()
+	// 			  {
+	// 				if (this.readyState == 4 && this.status == 200)
+	// 				{
+	// 					alert(http.responseText);
+	// 				} 
+	
+	// 				else if (http.status==404)
+	// 				{alert("file not found");
+	// 				}
+	
+	
+	
+	// 			  }
+	// 				// http.open("GET","another.php",true);
+	// 				// http.send();
+	// 			}
+	// // ----------------------------how search works-------------- 
+	// 			   function search()
+	// 			   { debugger;
+	// 				 var http =new XMLHttpRequest();
+	// 				 var search_word= document.getElementById("search_input").value;
+	// 				 http.onreadystatechange= function()
+	// 				 {
+	// 					 if(http.readyState== 4 && http.status== 200)
+	// 					 {
+	// 						 document.getElementById("search_result").innerHTML= http.responseText;
+	// 					 }
+	// 				 }
+	// 				http.open("GET","search_products.php?sk="+search_word,true);// need work here
+	// 				// http.open("GET","joblist_search.ejs?sk="+search_word,true);
+	// 				http.send();
+	
+	// 			   } 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				$(document).ready(function(){
+				$('#search_input').keyup(function()
+				{
+					console.log(this.value);
+					$.ajax({
+
+						url: '/home/ajaxsearch/'+this.value,
+						method: 'get',
+						datatype : 'json',
+						data : {'name':name},
+						contentType : "application/x-www-form-urlencoded",
+						success:function(response){
+
+							$('#mytable').html(response);
+						}
+					});
+				});
+				});
+				
+			</script>
+</body>
+</html>
+
+	<!-- <table border="1">
+		<tr>
+			<td>ID</td>
+			<td>USERNAME</td>
+			<td>PASSWORD</td>
+			<td>TYPE</td>
+			<td>Action</td>
+		</tr>
+
+		<% for(var i=0; i< userlist.length; i++ ){ %>
+		<tr>
+			<td><%= userlist[i].id %></td>
+			<td><%= userlist[i].username %></td>
+			<td><%= userlist[i].password %></td>
+			<td><%= userlist[i].type %></td>
+			<td>
+				<a href="/user/edit/<%=userlist[i].id%>">Edit</a> | 
+				<a href="/user/delete/<%=userlist[i].id%>">Delete</a>  
+			</td>
+		</tr>
+		<% } %>
+	</table> -->

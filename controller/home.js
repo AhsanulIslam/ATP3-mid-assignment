@@ -67,10 +67,6 @@ router.get('/carlist', (req, res)=>{
         console.log(results);
 		res.render('home/carlist', {userlist: results});
 	});
-	//res.render('home/joblist');// remove it after you have done your work
-	// chatModel.getByname(req.cookies['uname'],function(results){
-	// 	res.render('home/inbox', {userlist: results});
-	// });
 	
 });
 
@@ -111,31 +107,58 @@ router.get('/carlist/edit/:id', (req, res)=>{
 	// a_id = req.params.id;
 	// console.log(a_id);
 	carlistModel.getById(req.params.id, function(results){
-    console.log("obj",results);		
-    var user = {
-			id : req.params.id, 
-			car_name: results[0].car_name,
-			company: 	results[0].company,	 //user.buyer_uname, user.buyer_email, user.job_desc, user.job_date, user.salary, user.freelancer_uname 
-			category:    results[0].category_id, 
-			rent_amount:   	 results[0].rent_amount,
-			user_image:  results[0].image
-			//member: result.member
-			 // need to check for radio button
-			};
-			
-            console.log("car list",user);	
-       
-            carlistModel.getAll(function(results){
-                res.render('home/edit_carlist', {userlist: results});
-        });
-			//res.render('adFreelancerlist/adminFreelancerlist');// need to change the path
-		
-
-			//res.render('/adBuyerlist/delete', {userlist:results});
-			 //console.log(userlist);
+	console.log("obj",results);	
+	categoryModel.getAll(function(result){		
+        res.render('home/edit_carlist', {userlist: results, category: result});
+	});  
 	});
 	
 });
+router.post('/carlist/edit/:id', (req, res)=>{
+	// a_id = req.params.id;
+	console.log("car id",req.params.id);
+	carlistModel.getById(req.params.id, function(results){
+	console.log("obj",results);	
+	var user = {
+		id : req.params.id, 
+		car_name: 	  req.body.cname,
+		company: req.body.company,  
+		rent_amount: req.body.rent,
+        category:    req.body.c_id, 
+        image:    req.body.image
+       
+         
+	};
+	console.log("update", user);
+	//console.log(req.body);
+	//res.render('home/index');// remove it after you have done your work
+	
+	 carlistModel.update(user,function(status){
+		if(status){
+			console.log("inside update");
+			carlistModel.getAll(function(results){
+			//alert("user info updated");
+			//res.render('/home/carlist', {userlist: results});
+			res.redirect('/home/carlist');
+			});// need to change the path
+		}else{
+			console.log("did not update");
+			//alert("something wrong cannot update");
+			res.redirect('/home/edit_carlist');
+		}
+    });
+	
+    
+       // res.render('home/edit_carlist', {userlist: results});
+        
+		
+	});
+	
+});
+
+
+
+
 
 router.get('/addcar', (req, res)=>{
    categoryModel.getAll(function(results){
@@ -153,9 +176,9 @@ router.post('/addcar', (req, res)=>{
 		//id : req.params.id, 
 			car_name: req.body.cname,
 			company: 	req.body.company,	 //user.buyer_uname, user.buyer_email, user.job_desc, user.job_date, user.salary, user.freelancer_uname 
-			category_id:    req.body.c_id, 
+			category:    req.body.c_id, 
 			rent_amount:   	req.body.rent,
-			user_image:  req.body.image
+			image:  req.body.image
         
 	};
 	console.log(user);
@@ -164,11 +187,13 @@ router.post('/addcar', (req, res)=>{
 	
 	 carlistModel.insert(user,function(status){
 		if(status){
+			console.log("inside insertion");
 			carlistModel.getAll(function(results){
 			//alert("user info updated");
 			res.render('home/carlist', {userlist: results});
 			});// need to change the path
 		}else{
+			console.log("did not insert");
 			//alert("something wrong cannot update");
 			res.redirect('/home/add_car');
 		}

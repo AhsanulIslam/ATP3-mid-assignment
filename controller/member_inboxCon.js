@@ -1,5 +1,5 @@
 const express 	= require('express');
-//const userModel = require.main.require('./models/userModel');
+const userModel = require.main.require('./models/userModel');
 //const buyerModel	= require.main.require('./models/buyerModel');
 //const memberModel	= require.main.require('./models/memberModel');
 const inboxModel = require.main.require('./models/member_inboxModel');
@@ -36,7 +36,7 @@ router.get('/reply/:name', (req, res)=>{
 
 	inboxModel.getbytwoUsername(req.cookies['uname'],req.params.name, function(results){
 	console.log("obj",results);	
-	res.render('home/member_inboxInside', {userlist: results});	
+	res.render('home/freelancer_inboxInside', {userlist: results});	
     
 	});
 	
@@ -64,7 +64,7 @@ router.post('/reply/:name', (req, res)=>{
 
 		inboxModel.getbytwoUsername(req.cookies['uname'],req.params.name, function(results){
 		console.log("objtttttt",results);	
-		res.render('home/member_inboxInside', {userlist: results});	
+		res.render('home/freelancer_inboxInside', {userlist: results});	
 		});
 	});
 	

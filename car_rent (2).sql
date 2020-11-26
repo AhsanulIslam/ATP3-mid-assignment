@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 09:53 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.27
+-- Generation Time: Nov 26, 2020 at 06:15 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -55,18 +54,18 @@ CREATE TABLE `car_list` (
   `id` int(200) NOT NULL,
   `car_name` varchar(30) NOT NULL,
   `company` varchar(30) NOT NULL,
-  `category_id` int(10) NOT NULL,
   `rent_amount` int(30) NOT NULL,
-  `image` varchar(250) NOT NULL
+  `image` varchar(250) NOT NULL,
+  `category_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `car_list`
 --
 
-INSERT INTO `car_list` (`id`, `car_name`, `company`, `category_id`, `rent_amount`, `image`) VALUES
-(2, 'premio(2015)', 'toyota ', 1, 500, ''),
-(3, 'corolla(2015)', 'toyota', 1, 500, '');
+INSERT INTO `car_list` (`id`, `car_name`, `company`, `rent_amount`, `image`, `category_id`) VALUES
+(2, 'premio(2015)', 'toyota ', 500, '', 1),
+(3, 'corolla(2015)', 'toyota', 500, '', 2);
 
 -- --------------------------------------------------------
 
@@ -75,14 +74,39 @@ INSERT INTO `car_list` (`id`, `car_name`, `company`, `category_id`, `rent_amount
 --
 
 CREATE TABLE `car_rent` (
-  `id` int(10) NOT NULL,
+  `rent_id` int(10) NOT NULL,
   `car_name` varchar(30) NOT NULL,
   `company` varchar(30) NOT NULL,
   `category_id` int(10) NOT NULL,
   `rent_date` date NOT NULL,
   `rent_days` int(10) NOT NULL,
-  `total_amount` int(10) NOT NULL
+  `total_amount` int(10) NOT NULL,
+  `id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  `member_uname` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `car_rent`
+--
+
+INSERT INTO `car_rent` (`rent_id`, `car_name`, `company`, `category_id`, `rent_date`, `rent_days`, `total_amount`, `id`, `member_id`, `member_uname`) VALUES
+(1, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
+(2, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(3, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
+(4, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
+(5, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(6, 'premio(2015)', 'toyota ', 1, '2020-11-26', 3, 1500, 2, 1, ''),
+(7, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(8, 'corolla(2015)', 'toyota', 2, '2020-11-26', 1, 500, 3, 1, ''),
+(9, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(10, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(11, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(12, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
+(13, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
+(14, 'premio(2015)', 'toyota ', 1, '0000-00-00', 1, 500, 2, 1, ''),
+(15, 'corolla(2015)', 'toyota', 2, '2020-10-26', 2, 1000, 3, 1, ''),
+(16, 'premio(2015)', 'toyota ', 1, '2020-10-26', 3, 1500, 2, 1, 'shanin');
 
 -- --------------------------------------------------------
 
@@ -102,8 +126,7 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`category_id`, `name`) VALUES
 (1, 'sedan'),
 (2, 'suv'),
-(3, 'micro bus'),
-(4, 'sports car');
+(3, 'micro bus');
 
 -- --------------------------------------------------------
 
@@ -119,6 +142,14 @@ CREATE TABLE `chat` (
   `Admin_Username` varchar(11) NOT NULL,
   `reply` varchar(22) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id_chat`, `message`, `date`, `username`, `Admin_Username`, `reply`) VALUES
+(39, 'hy', '2020-11-26', 'shanin', 'Imon', 'shanin'),
+(40, 'hello', '2020-11-26', 'shanin', 'Imon', 'shanin');
 
 -- --------------------------------------------------------
 
@@ -159,13 +190,16 @@ ALTER TABLE `admins`
 -- Indexes for table `car_list`
 --
 ALTER TABLE `car_list`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id` (`category_id`);
 
 --
 -- Indexes for table `car_rent`
 --
 ALTER TABLE `car_rent`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`rent_id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `member_id` (`member_id`);
 
 --
 -- Indexes for table `categories`
@@ -206,25 +240,35 @@ ALTER TABLE `car_list`
 -- AUTO_INCREMENT for table `car_rent`
 --
 ALTER TABLE `car_rent`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `rent_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id_chat` int(10) NOT NULL AUTO_INCREMENT COMMENT '1', AUTO_INCREMENT=39;
+  MODIFY `id_chat` int(10) NOT NULL AUTO_INCREMENT COMMENT '1', AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `car_rent`
+--
+ALTER TABLE `car_rent`
+  ADD CONSTRAINT `car_rent_ibfk_1` FOREIGN KEY (`id`) REFERENCES `car_list` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

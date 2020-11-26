@@ -23,7 +23,7 @@ console.log(user);
 			memberModel.validate(user, function(status){ //need to make and work on memberModel
 				if(status){
 					res.cookie('uname', req.body.username);
-					res.redirect('/home/free_home');	//send to buyer home.ejs
+					res.redirect('/member');	//send to buyer home.ejs
 				}
 				// 	else {
 				// 	freelancerModel.validate(user, function(status){ //need to make and work on freelancer model

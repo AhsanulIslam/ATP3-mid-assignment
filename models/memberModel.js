@@ -3,7 +3,7 @@ const db = require('./db');
 module.exports ={
 
 	validate: function(user, callback){
-		var sql = "select * member from  where username=? and password=?";
+		var sql = "select * from member where username=? and password=?";
 		db.getResults(sql, [user.username, user.password], function(results){
 			if(results.length > 0){
 				callback(true);
@@ -25,6 +25,12 @@ module.exports ={
 			callback(results);
 		});
 	},
+	getByuname: function(name,callback){
+		var sql= "select id from member where username=? ";
+		db.getResults(sql, [name], function(results){
+			callback(results);
+		});
+	},
 	getcount: function(callback){
 		var sql = "SELECT COUNT(*) as t_c FROM member ";
 		db.getResults(sql, null, function(results){
@@ -38,6 +44,7 @@ module.exports ={
 			callback(results);
 		});
 	},
+
 	insert: function(user, callback){
 		var sql = "insert into member VALUES (?, ?, ?, ?, ?, ?, ?)";
 

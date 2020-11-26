@@ -45,7 +45,7 @@ app.use('/admemberlist', admember);
 app.use('/inbox',inbox);
 app.use('/member_inbox',member_inbox);
 
-//freelancer
+//memebr work
 app.use('/member',fhome);
 
 

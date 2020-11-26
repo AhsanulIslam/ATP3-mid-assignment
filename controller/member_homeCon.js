@@ -105,4 +105,57 @@ router.get('/free_admin_chat', (req, res)=>{
 
 
 
+router.get('/member_info', (req, res)=>{
+
+	memberModel.getAll(function(results){
+		res.render('home/member_info', {userlist: results});
+	});
+
+});
+router.post('/member_info', (req, res)=>{
+	
+	var user = {
+        fname: 	  req.body.fname,
+        username: req.body.uname,  //fname, uname, pass, pass2, email, phone, address1, member(freelancer/buyer) 
+        password: req.body.pass,
+        email:    req.body.email, 
+        phone:    req.body.phone,
+        address:  req.body.address1
+        //member: req.body.member
+         // need to check for radio button
+	};
+	console.log(user);
+	//console.log(req.body);
+	//res.render('home/index');// remove it after you have done your work
+	
+	 memberModel.update(user,function(status){
+		if(status){
+			memberModel.getByname(user.username,function(results){
+			//alert("user info updated");
+			res.redirect('/member/member_info', {userlist: results});
+			});// need to change the path
+		}else{
+			//alert("something wrong cannot update");
+			res.redirect('/home/info');
+		}
+    });
+		
+	
+});
+
+
+
+
+router.get('/userlist', (req, res)=>{
+
+	userModel.getAll(function(results){
+		res.render('home/userlist', {userlist: results});
+	});
+
+});
+
+
+
+
+
 module.exports = router;

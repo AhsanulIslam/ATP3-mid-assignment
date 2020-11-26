@@ -39,26 +39,11 @@
 						<td><%= userlist[i].email %></td>
 						<!-- <td><%= userlist[i].phone %></td>
 						<td><%= userlist[i].address %></td> -->
-						<td><a href="/freelancer_inbox/reply/<%=userlist[i].username%>"class="btn btn-success">Chat</a></td>  
+						<td><a href="/member_inbox/reply/<%=userlist[i].username%>"class="btn btn-success">Chat</a></td>  
 						<!-- <td><a href="/user/delete/<%=userlist[i].id%>" class="btn btn-danger">Delete</a></td>   -->
 						
 					</tr>
 					<% } %>
-				<!-- <?php
-					foreach($products as $product)
-					{
-						echo "<tr>";
-							echo "<td>".$product["p_id"]."</td>";
-							echo "<td>".$product["name"]."</td>";
-							echo "<td>".$product["category_id"]."</td>";
-							echo "<td>".$product["unit_price"]."</td>";
-							echo "<td>".$product["unit_qty"]."</td>";
-							echo "<td>".$product["expire_date"]."</td>";
-							echo '<td><a href="editproduct.php?id='.$product["p_id"].'" class="btn btn-success">Edit</a></td>';
-							echo '<td><a href="../controllers/ProductController.php?delete_id='.$product["p_id"].'"class="btn btn-danger">Delete</a></td>';
-						echo "</tr>";///////for delete it uses the delete_id as p_id
-					}
-				?> -->
 				
 			</tbody>
 		</table>

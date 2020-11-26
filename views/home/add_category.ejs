@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<%- include ('../home/admin_header')%>
+	
+
+	
+
+<!-- ///////////////////need to cut the upper form/////////////////// -->
+
+<!--addproduct starts -->
+	<div class="center">
+		<form method="post" onsubmit="return validate_form()"  action="" class="form-horizontal form-material">
+			<div class="form-group">
+				<h4 class="text">Name:</h4> 
+				<input type="text" name="name" id= "name" class="form-control"><span id="err_name" name ="err_name"></span>
+			</div>
+			
+			<div class="form-group text-center">
+				
+				<input type="submit" class="btn btn-success" name="add_category" value="Add Category" class="form-control">
+			</div>
+		</form>
+	</div>
+<script>
+		function validate_form()
+		{
+			name=document.getElementById("name").value;
+			var valid=true;
+			if (name=="")
+			{
+				document.getElementById("err_name").innerHTML="Category Name Required";
+				valid=false;
+			}
+			
+			if (valid)
+			{alert("insertion done");}
+		return valid;
+
+		}
+
+</script>
+<!--addproduct ends -->
+
+	
+</body>
+</html>

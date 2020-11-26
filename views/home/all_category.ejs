@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<%- include ('../home/admin_header')%>
+<!--All Categories starts -->
+
+<div class="center">
+	<h3 class="text">All Categories</h3>
+	<table class="table table-striped">
+		<thead>
+			<th>Sl#</th>
+			<th> Name</th>
+			
+			
+		</thead>
+		<tbody>
+			
+			<% for(var i=0; i< userlist.length; i++ ){ %>
+                <tr>
+                    <td><%= userlist[i].category_id %></td>  
+                    <td><%= userlist[i].name %></td>
+                   
+                    <!-- <td><%= userlist[i].freelancer_uname %></td> -->
+                    <!-- <td><a href="/admin_buyerlist/edit/<%=userlist[i].id%>"class="btn btn-success">Edit</a></td> 
+                    <td><a href="/home/joblist/delete/<%=userlist[i].id%>" class="btn btn-danger">Delete</a></td>   -->
+                    
+                </tr>
+                <% } %>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
+<!--All Categories ends -->

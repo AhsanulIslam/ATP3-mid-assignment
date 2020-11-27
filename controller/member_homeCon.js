@@ -103,6 +103,13 @@ router.get('/member_order_history', (req, res)=>{
 
 });
 
+router.get('/admin_member_order_history', (req, res)=>{
+
+	carrentModel.getAllorder(function(results){
+		res.render('home/admin_member_order_history', {userlist: results});
+	});
+
+});
 router.get('/order/send/:id', (req, res)=>{
 	// a_id = req.params.id;
 	// console.log(a_id);

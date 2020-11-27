@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<%- include ('../home/free_header')%>
+
+
+<script type="text/javascript">
+		
+	// function rentamount(){
+	// 	var amount = document.getElementById('day').value;
+
+	// 	if (!isNaN(result)) {
+	// 		document.getElementById('txtResult').value = amount;
+	// 	}	var amount='';
+	// 		for(var i=0; i< userlist.length; i++ ){
+	// 			amount= userlist[i].rent_amount
+	// 		}
+	// 		console.log(amount)
+	// // }
+
+	function rentamount() {
+
+            var day = document.getElementById('day').value;
+            var amount = document.getElementById('txtResult1').value;
+      
+		
+			var result= parseInt(day) * parseInt(amount);
+            if (!isNaN(result) && !isNaN(day)) {
+                document.getElementById('txtResult').value = result;
+			}
+			else{
+                document.getElementById('txtResult').value = "0.0";
+			}
+        }
+
+
+</script>
+
+	<div class="center">
+		
+		<form method="post" name="frm"  action="" enctype="" class="form-horizontal form-material">
+			<div class="center" id="search_result">
+				<h3 class="text">Car For Rent</h3>
+				<table class="table table-striped">
+					<thead>
+						 <!-- <th>id</th> user.buyer_uname, user.buyer_email, user.job_desc, user.job_date, user.salary, user.freelancer_uname -->
+						 <th> Member_id</th>
+						 <th>Username</th>
+						 <th> Car Name</th>
+						<th>Brand</th>
+						<!-- <th>Rent Amount/Day</th> -->
+						<th> Rent Date</th>
+						<th>Rent Days</th>
+						<th>Total(BDT)</th>
+						<!-- <th>Action</th> -->
+						
+					</thead>
+					<tbody>
+							<% for(var i=0; i< userlist.length; i++ ){ %>
+								<tr>
+									<!-- <td><%= userlist[i].id %></td> -->
+									<td><%= userlist[i].member_id %></td>
+									<td><%= userlist[i].member_uname %></td>
+									<td><%= userlist[i].car_name %></td>
+									<td><%= userlist[i].company%></td>
+									<td><%= userlist[i].rent_date%></td>
+									<td><%= userlist[i].rent_days%></td>
+									<td><%= userlist[i].total_amount%></td>
+									
+								</tr>
+								<% } %>
+					</tbody>
+				</table>
+			</div>
+				
+		</form>
+	</div>
+
+	
+</body>
+</html>

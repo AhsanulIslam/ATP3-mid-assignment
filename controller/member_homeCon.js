@@ -82,9 +82,10 @@ var yyyy = today.getFullYear();
 		
 	});
 
+	});
+	});
 });
-});
-});
+
 
 router.get('/member_order_info', (req, res)=>{
 
@@ -93,6 +94,100 @@ router.get('/member_order_info', (req, res)=>{
 	});
 
 });
+
+router.get('/member_order_history', (req, res)=>{
+
+	carrentModel.getAllorder(function(results){
+		res.render('home/member_order_history', {userlist: results});
+	});
+
+});
+
+router.get('/order/send/:id', (req, res)=>{
+	// a_id = req.params.id;
+	// console.log(a_id);
+	carrentModel.getById(req.params.id, function(results){
+	console.log("obj",results);	
+	var user = {
+
+
+		id : results[0].rent_id, 
+		car_name: results[0].car_name,
+		company: 	results[0].company,	 //user.buyer_uname, user.buyer_email, user.job_desc, user.job_date, user.salary, user.freelancer_uname 
+		category:    results[0].category_id, 
+		// user_image:  results[0].image,
+
+        rentamount:    results[0].total_amount, 
+		date:results[0].rent_date,
+		day:results[0].rent_days,
+		uid: results[0].member_id,
+		mem_uname : results[0].member_uname
+        //member: req.body.member
+         // need to check for radio button
+	};
+	console.log(user);
+	//res.render('home/index');// remove it after you have done your work
+	carrentModel.insertorder(user,function(status){
+		if(status){
+			console.log("insertion done")
+			carrentModel.getAllorder(function(results1){
+				res.render('home/member_order_history',{userlist: results1});
+			});
+
+			//sres.render('home/freelancer_info');// need to change the path
+		}else{
+			console.log("insertion fail");
+			
+			res.redirect('/');
+		}
+		
+	});
+
+	});
+
+	
+});
+
+
+router.get('/order/delete/:id', (req, res)=>{
+	// a_id = req.params.id;
+	// console.log(a_id);
+	carrentModel.getById(req.params.id, function(results){
+    console.log("obj",results);		
+    var user = {
+			id :results[0].rent_id, 
+			car_name: results[0].car_name,
+			company: 	results[0].company,	 //user.buyer_uname, user.buyer_email, user.job_desc, user.job_date, user.salary, user.freelancer_uname 
+			category:    results[0].category_id, 
+			// user_image:  results[0].image,
+	
+			rentamount:  results[0].total_amount, 
+			date:	results[0].rent_date,
+			day:	results[0].rent_days,
+			uid: 	results[0].member_id,
+			mem_uname : results[0].member_uname
+			//member: result.member
+			 // need to check for radio button
+            };
+            console.log("delete order",user);	
+        carrentModel.delete(user, function(status){
+		if(status){
+			console.log("delete done");
+            carrentModel.getAll(function(results){
+                res.redirect('/member/member_order_info');
+        });
+			//res.render('adFreelancerlist/adminFreelancerlist');// need to change the path
+		}else{
+		console.log("delete failed");
+			res.redirect('/');
+		}
+	});
+			//res.render('/adBuyerlist/delete', {userlist:results});
+			 //console.log(userlist);
+	});
+	
+})
+
 
 
 router.get('/free_admin_chat', (req, res)=>{

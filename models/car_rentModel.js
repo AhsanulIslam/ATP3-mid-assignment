@@ -57,8 +57,22 @@ module.exports ={
 			callback(status);
 		});
 	},
+	/////////////////////////////////////////////
 
+	insertorder: function(user, callback){
+		var sql = "insert into order_history VALUES (?, ?, ?, ?, ?,?, ?, ?)";
+		db.execute(sql, ['', user.car_name, user.company, user.date, user.day, user.rentamount, user.uid, user.mem_uname], function(status){
+			callback(status);
+		});
+	},
 
+	getAllorder: function(callback){
+		var sql = "select * from order_history";
+		db.getResults(sql, null, function(results){
+			callback(results);
+		});
+	},
+///////////////////////////////////////////////////////////////////////////////////
 
 	update: function(user,callback){
         var sql = "UPDATE car_rent SET company = ?, category_id =?, rent_amount= ?, image= ? WHERE  car_name = ? ";
@@ -68,9 +82,9 @@ module.exports ={
 		});
 	},
 	delete: function(user,callback){ // check if i am sending an object in user or a single value
-        var sql = "DELETE FROM car_rent WHERE id= ? ";
+        var sql = "DELETE FROM car_rent WHERE rent_id= ?";
 
-		db.execute(sql, [ user.id], function(status){
+		db.execute(sql, [user.id], function(status){
 			callback(status);
         
 	    });

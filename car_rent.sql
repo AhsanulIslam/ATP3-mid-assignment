@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 06:15 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Generation Time: Nov 27, 2020 at 07:15 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -65,7 +66,8 @@ CREATE TABLE `car_list` (
 
 INSERT INTO `car_list` (`id`, `car_name`, `company`, `rent_amount`, `image`, `category_id`) VALUES
 (2, 'premio(2015)', 'toyota ', 500, '', 1),
-(3, 'corolla(2015)', 'toyota', 500, '', 2);
+(3, 'corolla(2015)', 'toyota', 500, '', 2),
+(4, 'civic (2017)', 'Honda', 800, '', 1);
 
 -- --------------------------------------------------------
 
@@ -91,22 +93,9 @@ CREATE TABLE `car_rent` (
 --
 
 INSERT INTO `car_rent` (`rent_id`, `car_name`, `company`, `category_id`, `rent_date`, `rent_days`, `total_amount`, `id`, `member_id`, `member_uname`) VALUES
-(1, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
-(2, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(3, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
-(4, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
-(5, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(6, 'premio(2015)', 'toyota ', 1, '2020-11-26', 3, 1500, 2, 1, ''),
-(7, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(8, 'corolla(2015)', 'toyota', 2, '2020-11-26', 1, 500, 3, 1, ''),
-(9, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(10, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(11, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(12, 'premio(2015)', 'toyota ', 1, '2020-11-26', 2, 1000, 2, 1, ''),
-(13, 'premio(2015)', 'toyota ', 1, '2020-11-26', 1, 500, 2, 1, ''),
-(14, 'premio(2015)', 'toyota ', 1, '0000-00-00', 1, 500, 2, 1, ''),
-(15, 'corolla(2015)', 'toyota', 2, '2020-10-26', 2, 1000, 3, 1, ''),
-(16, 'premio(2015)', 'toyota ', 1, '2020-10-26', 3, 1500, 2, 1, 'shanin');
+(17, 'premio(2015)', 'toyota ', 1, '2020-10-27', 2, 1000, 2, 1, 'shanin'),
+(18, 'corolla(2015)', 'toyota', 2, '2020-10-27', 3, 1500, 3, 1, 'shanin'),
+(20, 'civic (2017)', 'Honda', 1, '2020-10-27', 6, 4800, 4, 1, 'shanin');
 
 -- --------------------------------------------------------
 
@@ -126,7 +115,8 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`category_id`, `name`) VALUES
 (1, 'sedan'),
 (2, 'suv'),
-(3, 'micro bus');
+(3, 'micro bus'),
+(4, 'sports car');
 
 -- --------------------------------------------------------
 
@@ -175,6 +165,30 @@ INSERT INTO `member` (`id`, `fname`, `username`, `password`, `email`, `phone`, `
 (1, 'Shanin', 'shanin', '123', 'shanin@gmail.com', '01744545487', 'Uttora, Dhaka\r\n'),
 (5, 'sam wilson', 'sam', '123', 'sam@gmail.com', '01869217629', 'dhanmondi');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_history`
+--
+
+CREATE TABLE `order_history` (
+  `id` int(10) NOT NULL,
+  `car_name` varchar(30) NOT NULL,
+  `company` varchar(30) NOT NULL,
+  `rent_date` date NOT NULL,
+  `rent_days` int(10) NOT NULL,
+  `total_amount` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  `member_uname` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_history`
+--
+
+INSERT INTO `order_history` (`id`, `car_name`, `company`, `rent_date`, `rent_days`, `total_amount`, `member_id`, `member_uname`) VALUES
+(1, 'civic (2017)', 'Honda', '2020-10-27', 6, 4800, 1, 'shanin');
+
 --
 -- Indexes for dumped tables
 --
@@ -221,6 +235,12 @@ ALTER TABLE `member`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `order_history`
+--
+ALTER TABLE `order_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -234,19 +254,19 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `car_list`
 --
 ALTER TABLE `car_list`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `car_rent`
 --
 ALTER TABLE `car_rent`
-  MODIFY `rent_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `rent_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -259,6 +279,12 @@ ALTER TABLE `chat`
 --
 ALTER TABLE `member`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `order_history`
+--
+ALTER TABLE `order_history`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

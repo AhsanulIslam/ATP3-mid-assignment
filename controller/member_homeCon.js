@@ -94,10 +94,11 @@ router.get('/member_order_info', (req, res)=>{
 	});
 
 });
+/////////////////////////////////////////////////////////////
 
 router.get('/member_order_history', (req, res)=>{
 
-	carrentModel.getAllorder(function(results){
+	carrentModel.getByusername(req.cookies['uname'],function(results){
 		res.render('home/member_order_history', {userlist: results});
 	});
 

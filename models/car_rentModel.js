@@ -72,6 +72,13 @@ module.exports ={
 			callback(results);
 		});
 	},
+
+	getByusername: function(name,callback){
+		var sql= "select * from order_history where member_uname=? ";
+		db.getResults(sql, [name], function(results){
+			callback(results);
+		});
+	},
 ///////////////////////////////////////////////////////////////////////////////////
 
 	update: function(user,callback){
